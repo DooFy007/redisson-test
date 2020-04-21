@@ -1,0 +1,18 @@
+下载解压编译安装
+自启动脚本文件：redis/utils/redis_init_script
+设置自启动：
+    1.cp redis/utils/redis_init_scrpit /etc/init.d/redisd
+        拷贝到/etc/init.d目录下并重命名为redisd(自启动服务名称都以d结尾，命名规范)
+    2.chkconfig redisd on
+        将配置文件生效
+    3.开机自启动配置完成。可以使用service redisd start/stop启动关闭服务
+    4.redis_init_script文本中加载的配置文件/etc/redis/6379.conf
+redis.conf
+    cp redis/redis.conf /etc/redis/6379.conf
+    然后对6379.conf进行修改
+    设置一下dir /etc/redis。这样，rdb和aof日志文件就都可以存到dir目录下了
+外网访问：
+    redis.conf文件
+    1.protected-mode no
+    2.bind 0.0.0.0
+    3.云服务安全组添加开放端口6379
