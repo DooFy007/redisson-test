@@ -27,7 +27,8 @@ public class RedissonTest {
     public void set(){
         // 设置字符串
         RBucket<String> keyObj = redissonClient.getBucket("k1");
-        keyObj.set("v1236");
+        keyObj.set("v1234");
+
 
     }
 }
