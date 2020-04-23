@@ -1,4 +1,4 @@
-package com.doofy;
+package com.doofy.config;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -16,12 +16,12 @@ import java.io.IOException;
  * @Version
  **/
 @Configuration
-public class RedissonConfig {
+public class RedissonSingleServerConfig {
 
 
     @Bean
     public RedissonClient redisson() throws IOException {
-        Config config = Config.fromYAML(RedissonConfig.class.getClassLoader().getResource("config-file.yaml"));
+        Config config = Config.fromYAML(RedissonSingleServerConfig.class.getClassLoader().getResource("redis-singleServer-config.yaml"));
         return Redisson.create(config);
     }
 
