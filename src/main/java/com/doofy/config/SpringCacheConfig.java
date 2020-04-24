@@ -27,8 +27,8 @@ public class SpringCacheConfig {
 //        return new RedissonSpringCacheManager(redissonClient, config);
 //    }
 
-    @Bean
-    public CacheManager cacheManager(RedissonClient redissonClient) throws IOException {
-        return new RedissonSpringCacheManager(redissonClient, "classpath:/cache-config.yml");
-    }
+//    @Bean
+//    public CacheManager cacheManager(RedissonClient redissonClient) throws IOException {
+//        return new RedissonSpringCacheManager(redissonClient, "classpath:/cache-config.yml");
+//    }
 }
