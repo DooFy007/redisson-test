@@ -1,0 +1,44 @@
+redis cluster goals
+1.异步复制，没有归并操作
+2.可用性：大部分master节点可用，并且对少部分不可用的master，每一个master至少有一个当前可用的slave.
+当前没有slave的master会从当前拥有多个slave的master接受到一个新slave来确保可用性
+
+clients and servers roles in the redis cluster protocol
+1.redis cluster的节点负责维护数据，获取集群状态。这包括将keys映射到正确的节点。集群节点同样可以自动发现其他节点
+检测不工作节点，以及在发现故障发生时晋升slave节点到master
+
+cluster nodes
+每个节点在cluster中有一个唯一的名字。
+可以使用cluster nodes命令查看
+
+每个master节点都维护一些hash slots.当读取key的value时，客户端需要知道key映射的slots，
+并通过slot确定哪一个节点可以提供服务
+
+cluster live reconfiguration
+添加节点：将一个新的空节点添加到集群并从已有节点转移一系列slot放到该新节点上
+删除节点：将待删除节点的所有hash slot 转移到其他节点
+节点rebalane:将给定一系列hash slots在节点间移动
+resharding是将一些slots从一个redis实例中转移到另一个实例中，slots中包含的keys也会被转移到新的redis实例中
+命令：cluster addslots slot1 slot2
+命令：cluster delslots slot1 slot2
+不建议直接使用
+
+
+配置：
+port 7000
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+appendonly yes
+
+1.修改配置文件
+2.启动实例
+3.创建集群
+redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 --cluster-replicas 1
+redis-cli --cluster create 127.0.0.1:6380 127.0.0.1:6381 127.0.0.1:6382 127.0.0.1:6383 127.0.0.1:6384 127.0.0.1:6385 --cluster-replicas 1  -a caonimei444
+
+redis-cli -c -p 6380登录，-c表示以集群的方式登录
+添加节点
+redis-cli --cluster add-node 127.0.0.1:7006(新节点) 127.0.0.1:7000(集群中任意节点)
+    主节点分配slots
+    将新节点添加成副本
