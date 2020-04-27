@@ -19,12 +19,12 @@ import java.io.IOException;
 public class RedissonClientConfig {
 
 
-    @Bean
-    public RedissonClient redisson() throws IOException {
-        Config config = Config.fromYAML(RedissonClientConfig.class.getClassLoader().getResource("redis-clusterServer-config.yml"));
-        System.out.println(config.toJSON());
-        return Redisson.create(config);
-    }
+//    @Bean
+//    public RedissonClient redisson() throws IOException {
+//        Config config = Config.fromYAML(RedissonClientConfig.class.getClassLoader().getResource("redis-clusterServer-config.yml"));
+//        System.out.println(config.toJSON());
+//        return Redisson.create(config);
+//    }
 
 
 

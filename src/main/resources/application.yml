@@ -1,0 +1,4 @@
+spring:
+  redis:
+    redisson:
+      config: classpath:redis-clusterServer-config.yml
